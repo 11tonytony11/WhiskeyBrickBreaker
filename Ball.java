@@ -1,9 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class Ball extends Thread implements ActionListener
+public class Ball extends Thread
 {
 	BallsAndBoxesPanel panel;
 	int x, y, width;
@@ -19,7 +17,7 @@ public class Ball extends Thread implements ActionListener
 		this.panel = p;
 		this.x = x;
 		this.y = y;
-		this.timer = new Timer(5, this);
+		this.timer = new Timer(5, new Updater(this.panel));
 		timer.start();
 	}
 	
@@ -73,10 +71,5 @@ public class Ball extends Thread implements ActionListener
 			// NEVER EVER DELETE THIS IS WHAT MAKES THE CODE WORK AND I DON'T KNOW WHY
 			System.out.print("");
 		}
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		this.panel.repaint();
 	}
 }
