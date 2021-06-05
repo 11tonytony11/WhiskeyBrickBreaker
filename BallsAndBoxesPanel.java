@@ -12,7 +12,7 @@ public class BallsAndBoxesPanel extends JPanel
 
 	public BallsAndBoxesPanel()
 	{
-		SwingUtilities.invokeLater(() -> ball   = new Ball(300,400,10,Color.RED,this));
+		ball   = new Ball(300,400,10,Color.RED,this);
 		racket = new Racket(this);
 		mat    = new Box[5][7];
 
@@ -46,10 +46,15 @@ public class BallsAndBoxesPanel extends JPanel
 		ball.draw(g);
 
 		for (Box[] boxes : mat)
+		{
 			for (Box box : boxes)
+			{
 				if (box.isAlive())
+				{
 					box.draw(g);
-		
+				}
+			}
+		}
 		racket.drawRacket(g);
 	}
 
@@ -69,7 +74,7 @@ public class BallsAndBoxesPanel extends JPanel
 
 	public static void main(String[] args) 
 	{
-		JFrame f = new JFrame("Break Breaker Pre MS(c)");
+		JFrame f = new JFrame("Whiskey Breaker Alpha MS(c)");
 		BallsAndBoxesPanel bbp = new BallsAndBoxesPanel();
 
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
