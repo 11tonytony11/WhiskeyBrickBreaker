@@ -3,11 +3,10 @@ import java.awt.*;
 
 public class Ball extends Thread
 {
-	BallsAndBoxesPanel panel;
+	volatile BallsAndBoxesPanel panel;
 	int x, y, width;
 	int dirx, diry;
     Color color;
-
     Timer timer;
 
 	public Ball(int x, int y, int width, Color color, BallsAndBoxesPanel p)
@@ -17,6 +16,7 @@ public class Ball extends Thread
 		this.panel = p;
 		this.x = x;
 		this.y = y;
+
 		this.timer = new Timer(5, new Updater(this.panel));
 		timer.start();
 	}
@@ -67,9 +67,6 @@ public class Ball extends Thread
 				}
 				catch (InterruptedException ignored) {}
 			}
-
-			// NEVER EVER DELETE THIS IS WHAT MAKES THE CODE WORK AND I DON'T KNOW WHY
-			System.out.print("");
 		}
 	}
 }
