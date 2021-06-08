@@ -5,6 +5,7 @@ public class Box extends Thread
 {
 	BallsAndBoxesPanel panel;
 	int x, y, width, height;
+	AePlayWave voice;
 	ImageIcon ii;
 	Image img;
 
@@ -45,6 +46,11 @@ public class Box extends Thread
 					panel.ball.dirx *= -1;
 					panel.ball.diry *= -1;
 				}
+
+				voice = new AePlayWave("break.wav");
+				voice.start();
+				BallsAndBoxesPanel.score++;
+				BallsAndBoxesPanel.scoreGUI.setText("Score: " + String.valueOf(BallsAndBoxesPanel.score));
 
 				break;
 			}
