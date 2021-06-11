@@ -96,7 +96,7 @@ public class Bomb extends Thread
     /* ------------------------------------------------------------------ */
     public boolean BombIntersectsRacket(Racket r)
     {
-        return ((this.x >= r.x && this.x <= r.x + this.width) && (this.y >= r.y));
+        return ((this.x >= r.x && this.x <= r.x + r.w) && (this.y + this.height >= r.y));
     }
     /* ------------------------------------------------------------------
      * This function ...
