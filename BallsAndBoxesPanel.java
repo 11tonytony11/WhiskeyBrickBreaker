@@ -3,24 +3,29 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class BallsAndBoxesPanel extends JPanel
 {
 	public static int score = 0;
 	public static JLabel scoreGUI = new JLabel("Score: " + String.valueOf(score), SwingConstants.CENTER);
 
 	Racket racket;
+	Bomb powerUp;
+	Box[][] mat;
 	Bomb bomb;
-	Box [][] mat;
 	Ball ball;
 
+	/* ------------------------------------------------------------------
+     * This function ...
+     * Input:
+     * Output:
+    /* ------------------------------------------------------------------ */
 	public BallsAndBoxesPanel()
 	{
-		ball   = new Ball(300,400,10,Color.RED,this);
-		racket = new Racket(this);
-		mat    = new Box[5][7];
-		bomb   = new Bomb(this);
-
+		this.ball    = new Ball(300,400,10,Color.RED,this);
+		this.powerUp = new Bomb(this, "powerup");
+		this.bomb    = new Bomb(this, "bomb");
+		this.racket  = new Racket(this);
+		this.mat     = new Box[5][7];
 
 		for(int i = 0; i < mat.length; i++)
 		{
@@ -29,8 +34,6 @@ public class BallsAndBoxesPanel extends JPanel
 				mat[i][j] = new Box (j * 80 + 20,i * 50 + 20,50,20,this);
 			}
 		}
-		
-		ball.start();
 
 		for (Box[] boxes : mat)
 		{
@@ -40,18 +43,27 @@ public class BallsAndBoxesPanel extends JPanel
 			}
 		}
 
-		racket.start();
-		bomb.start();
+		this.powerUp.start();
+		this.racket.start();
+		this.bomb.start();
+		this.ball.start();
 
-		addMouseMotionListener(new MML());
-		setBackground(Color.WHITE);
+		this.addMouseMotionListener(new MML());
+		this.setBackground(Color.WHITE);
 	}
-	
+	/* ------------------------------------------------------------------
+	 * This function ...
+ 	 * Input:
+ 	 * Output:
+	/* ------------------------------------------------------------------ */
 	public void paintComponent(Graphics g)
 	{
 	    super.paintComponent(g);
-		ball.draw(g);
-		bomb.draw(g);
+
+	    this.racket.drawRacket(g);
+	    this.powerUp.draw(g);
+		this.ball.draw(g);
+		this.bomb.draw(g);
 
 		for (Box[] boxes : mat)
 		{
@@ -63,36 +75,39 @@ public class BallsAndBoxesPanel extends JPanel
 				}
 			}
 		}
-		racket.drawRacket(g);
 	}
-
-	class MML extends MouseMotionAdapter 
-	{
-		public void mouseMoved(MouseEvent e)
-		{
-			if(!racket.isPaused)
-			{
-				if( e.getX()<getWidth() - racket.w)
-				{
-					racket.x = e.getX();
-				}
-			}
-		}	
-	}
-
+	/* ------------------------------------------------------------------
+	 * This function ...
+	 * Input:
+	 * Output:
+	/* ------------------------------------------------------------------ */
 	public static void main(String[] args) 
 	{
-		JFrame f = new JFrame("Whiskey Breaker Alpha MS(c)");
+		JFrame f = new JFrame("Whiskey Breaker Beta MS(c)");
 		BallsAndBoxesPanel bbp = new BallsAndBoxesPanel();
-
 
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.add(scoreGUI, BorderLayout.NORTH);
-		scoreGUI.setFont(new Font("Arial", Font.ITALIC, 24));
+		f.add(bbp, BorderLayout.CENTER);
+
 		f.setSize(600,730);
 		f.setResizable(false);
 		f.setVisible(true);
-		f.add(bbp, BorderLayout.CENTER);
+
+		scoreGUI.setFont(new Font("Arial", Font.ITALIC, 24));
+	}
+
+	// -----------------------------------------------------------------------------
+	// *****************************************************************************
+	// -----------------------------------------------------------------------------
+	class MML extends MouseMotionAdapter
+	{
+		public void mouseMoved(MouseEvent e)
+		{
+			if( e.getX()<getWidth() - racket.w)
+			{
+				racket.x = e.getX();
+			}
+		}
 	}
 }
-
