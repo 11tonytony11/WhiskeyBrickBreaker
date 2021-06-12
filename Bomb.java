@@ -13,9 +13,9 @@ public class Bomb extends Thread
     Image img;
 
     /* ------------------------------------------------------------------
-     * This function ...
-     * Input:
-     * Output:
+     * This function is the Bomb c'tor
+     * Input:  game panel, bomb type
+     * Output: None
     /* ------------------------------------------------------------------ */
     public Bomb(BallsAndBoxesPanel p, String newType)
     {
@@ -42,18 +42,18 @@ public class Bomb extends Thread
 
     }
     /* ------------------------------------------------------------------
-     * This function ...
-     * Input:
-     * Output:
+     * This function draws elements to screen
+     * Input:  software graphics
+     * Output: None
     /* ------------------------------------------------------------------ */
     public void draw(Graphics g)
     {
         g.drawImage(img, x,y, width,height,null);
     }
     /* ------------------------------------------------------------------
-     * This function ...
-     * Input:
-     * Output:
+     * This function is handling the bomb behavior
+     * Input:  None
+     * Output: None
     /* ------------------------------------------------------------------ */
     public void run()
     {
@@ -71,9 +71,7 @@ public class Bomb extends Thread
             }
             if(BombIntersectsRacket(panel.racket) && this.type.equals("powerup"))
             {
-                BallsAndBoxesPanel.score++;
-                BallsAndBoxesPanel.scoreGUI.setText("Score: " + String.valueOf(BallsAndBoxesPanel.score));
-
+                this.panel.incScore();
                 this.resetBomb();
             }
             else if(this.y + height >= panel.getHeight() && panel.getHeight() > 0)
@@ -90,18 +88,18 @@ public class Bomb extends Thread
         }
     }
     /* ------------------------------------------------------------------
-     * This function ...
-     * Input:
-     * Output:
+     * This function checks if the bomb intersects with the racket
+     * Input:  Racket
+     * Output: True - if intersects
     /* ------------------------------------------------------------------ */
     public boolean BombIntersectsRacket(Racket r)
     {
         return ((this.x >= r.x && this.x <= r.x + r.w) && (this.y + this.height >= r.y));
     }
     /* ------------------------------------------------------------------
-     * This function ...
-     * Input:
-     * Output:
+     * This function resets the bomb location
+     * Input:  None
+     * Output: None
     /* ------------------------------------------------------------------ */
     private void resetBomb()
     {
@@ -114,5 +112,4 @@ public class Bomb extends Thread
         }
         catch (InterruptedException ignored) {}
     }
-
 }
