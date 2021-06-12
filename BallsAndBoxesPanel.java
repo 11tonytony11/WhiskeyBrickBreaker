@@ -5,8 +5,8 @@ import java.awt.*;
 
 public class BallsAndBoxesPanel extends JPanel
 {
-	public static int score = 0;
-	public static JLabel scoreGUI = new JLabel("Score: " + String.valueOf(score), SwingConstants.CENTER);
+	int score = 0;
+	JLabel scoreGUI = new JLabel("Score: " + score, SwingConstants.CENTER);
 
 	Racket racket;
 	Bomb powerUp;
@@ -15,9 +15,9 @@ public class BallsAndBoxesPanel extends JPanel
 	Ball ball;
 
 	/* ------------------------------------------------------------------
-     * This function ...
-     * Input:
-     * Output:
+     * This function is the panel c'tor
+     * Input:  None
+     * Output: None
     /* ------------------------------------------------------------------ */
 	public BallsAndBoxesPanel()
 	{
@@ -52,9 +52,9 @@ public class BallsAndBoxesPanel extends JPanel
 		this.setBackground(Color.WHITE);
 	}
 	/* ------------------------------------------------------------------
-	 * This function ...
- 	 * Input:
- 	 * Output:
+	 * This function draws all the components on the screen
+ 	 * Input:  software graphics
+ 	 * Output: None
 	/* ------------------------------------------------------------------ */
 	public void paintComponent(Graphics g)
 	{
@@ -77,9 +77,19 @@ public class BallsAndBoxesPanel extends JPanel
 		}
 	}
 	/* ------------------------------------------------------------------
-	 * This function ...
-	 * Input:
-	 * Output:
+	 * This function increments the score
+	 * Input:  None
+	 * Output: None
+	/* ------------------------------------------------------------------ */
+	public void incScore()
+	{
+		this.score++;
+		this.scoreGUI.setText("Score: " + this.score);
+	}
+	/* ------------------------------------------------------------------
+	 * This is the main function of the code
+	 * Input:  None
+	 * Output: None
 	/* ------------------------------------------------------------------ */
 	public static void main(String[] args) 
 	{
@@ -87,16 +97,15 @@ public class BallsAndBoxesPanel extends JPanel
 		BallsAndBoxesPanel bbp = new BallsAndBoxesPanel();
 
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.add(scoreGUI, BorderLayout.NORTH);
+		f.add(bbp.scoreGUI, BorderLayout.NORTH);
 		f.add(bbp, BorderLayout.CENTER);
 
 		f.setSize(600,730);
 		f.setResizable(false);
 		f.setVisible(true);
 
-		scoreGUI.setFont(new Font("Arial", Font.ITALIC, 24));
+		bbp.scoreGUI.setFont(new Font("Arial", Font.ITALIC, 24));
 	}
-
 	// -----------------------------------------------------------------------------
 	// *****************************************************************************
 	// -----------------------------------------------------------------------------
