@@ -1,29 +1,33 @@
 import javax.swing.*;
 import java.awt.*;
 
-
 public class Racket extends Thread
 {
 	BallsAndBoxesPanel panel;
+	Image racketImage;
+	
 	int x = 250, y = 600;
 	int w = 120, h = 50;
-
-	boolean isPaused = false;
-	Image racketImage;
-	ImageIcon ii;
-
+	/* ------------------------------------------------------------------
+ 	 * This function is the racket c'tor
+ 	 * Input:  game panel
+ 	 * Output: None
+	/* ------------------------------------------------------------------ */
 	public Racket(BallsAndBoxesPanel panel)
 	{
 		this.panel = panel;
-		this.ii = new ImageIcon("racket.png");
-		racketImage = ii.getImage();
+		this.racketImage = new ImageIcon("racket.png").getImage();
 	}
-
+	/* ------------------------------------------------------------------
+ 	 * This function is handling the Racket behavior
+ 	 * Input:  None
+ 	 * Output: None
+	/* ------------------------------------------------------------------ */
 	public void run()
 	{
 		while(true)
 		{
-			if(BoxIntersectsBall(panel.ball))
+			if(racketIntersectsBall(panel.ball))
 			{
 				panel.ball.diry *= -1;
 				int deltaX = 1;
@@ -48,12 +52,21 @@ public class Racket extends Thread
 			catch (InterruptedException ignored) {}
 		}	
 	}
+	/* ------------------------------------------------------------------
+ 	 * This function draws the racket
+ 	 * Input:  software graphics
+ 	 * Output: None
+	/* ------------------------------------------------------------------ */
 	public void drawRacket(Graphics g)
 	{
 		g.drawImage(racketImage, x,y, w,h,null);
 	}
-
-	public  boolean  BoxIntersectsBall ( Ball b)
+	/* ------------------------------------------------------------------
+ 	 * This function checks if the ball intersects with the racket
+ 	 * Input:  game ball
+ 	 * Output: True - if intersects
+	/* ------------------------------------------------------------------ */
+	public boolean racketIntersectsBall(Ball b)
 	{
 		Rectangle coverBox;
 
