@@ -87,6 +87,26 @@ public class BallsAndBoxesPanel extends JPanel
 		this.scoreGUI.setText("Score: " + this.score);
 	}
 	/* ------------------------------------------------------------------
+	 * This function checks if the player won
+	 * Input:  None
+	 * Output: None
+	/* ------------------------------------------------------------------ */
+	public void isWin()
+	{
+		for (Box[] boxes : mat)
+		{
+			for (Box box : boxes)
+			{
+				if (box.isAlive())
+				{
+					return;
+				}
+			}
+		}
+		JOptionPane.showMessageDialog(null, "You Won!", "Game end", JOptionPane.INFORMATION_MESSAGE);
+		System.exit(0);
+	}
+	/* ------------------------------------------------------------------
 	 * This is the main function of the code
 	 * Input:  None
 	 * Output: None
