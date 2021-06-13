@@ -6,9 +6,13 @@ public class Box extends Thread
 	BallsAndBoxesPanel panel;
 	int x, y, width, height;
 	AePlayWave voice;
-	ImageIcon ii;
 	Image img;
 
+	/* ------------------------------------------------------------------
+ 	 * This function is the Box c'tor
+ 	 * Input:  (x,y) location, dimensions and game panel
+ 	 * Output: None
+	/* ------------------------------------------------------------------ */
 	public Box(int x,int y,int width,int height, BallsAndBoxesPanel p)
 	{
 		this.height = height;
@@ -17,22 +21,29 @@ public class Box extends Thread
 		this.x = x;
 		this.y = y;
 
-		this.ii  = new ImageIcon("box.jpg");
-		this.img = ii.getImage();
+		this.img = new ImageIcon("box.jpg").getImage();
 	}
-
+	/* ------------------------------------------------------------------
+ 	 * This function draws the boxes
+ 	 * Input:  software graphics
+ 	 * Output: None
+	/* ------------------------------------------------------------------ */
 	public void draw(Graphics g)
 	{
 		g.drawImage(img, x,y, width,height,null);
 	}
-
+	/* ------------------------------------------------------------------
+ 	 * This function handles the box behavior
+ 	 * Input:  game panel
+ 	 * Output: None
+	/* ------------------------------------------------------------------ */
 	public void run()
 	{
 		while (true) 
 		{
 			if(BoxIntersectsBall(panel.ball))
 			{
-				panel.ball.diry*=-1;
+				panel.ball.diry *= -1;
 				int deltaX = 1;
 
 				if(panel.ball.x + panel.ball.width / 2 - deltaX <= x )
@@ -47,10 +58,10 @@ public class Box extends Thread
 					panel.ball.diry *= -1;
 				}
 
+				this.panel.incScore();
+
 				voice = new AePlayWave("break.wav");
 				voice.start();
-				BallsAndBoxesPanel.score++;
-				BallsAndBoxesPanel.scoreGUI.setText("Score: " + String.valueOf(BallsAndBoxesPanel.score));
 
 				break;
 			}
@@ -61,13 +72,18 @@ public class Box extends Thread
 			catch (InterruptedException ignored) {}
 		}	
 	}
-
-	public  boolean  BoxIntersectsBall ( Ball b)
+	/* ------------------------------------------------------------------
+ 	 * This function checks if the ball hit a box
+ 	 * Input:  game ball
+ 	 * Output: True - if intersects
+	/* ------------------------------------------------------------------ */
+	public  boolean  BoxIntersectsBall(Ball b)
 	{
 		Rectangle coverBox;
 		
 		int x1 = x - b.width / 2;
 		int y1 = y - b.width / 2;
+
 		int w1 = width+b.width;
 		int h1 = height+b.width;
 		
