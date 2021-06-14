@@ -43,8 +43,6 @@ public class Box extends Thread
 		{
 			if(BoxIntersectsBall(panel.ball))
 			{
-				panel.isWin();
-				
 				panel.ball.diry *= -1;
 				int deltaX = 1;
 
