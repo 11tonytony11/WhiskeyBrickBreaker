@@ -74,6 +74,9 @@ public class Ball extends Thread
 					JOptionPane.showMessageDialog(null, "You lost", "Game over", JOptionPane.INFORMATION_MESSAGE);
 					System.exit(0);
 				}
+				
+				panel.isWin();
+				
 				try
 				{
 					Thread.sleep(5);
